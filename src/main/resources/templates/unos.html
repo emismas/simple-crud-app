@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Unos vica</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="../static/css/style.css" th:href="@{css/style.css}" rel="stylesheet"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"/>
+</head>
+<body>
+
+<header>
+    <nav class="navbar bg-color">
+        <a class="navbar-brand" th:href="@{/}">DEMO</a>
+        <ul class="navbar-nav">
+            <li class="nav-item" th:if="${username != null}"><a th:href="@{/logout}" th:text="logout"></a></li>
+            <li class="nav-item" th:if="${username == null}"><a th:href="@{/login}" th:text="login"></a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="wrapper">
+
+    <form class="form-centered" action="#" th:action="@{/new}" th:object="${joke}" method="post">
+        <h2>Unesi vic</h2>
+
+        <p>Sadržaj</p>
+        <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="alert alert-warning">Content error:
+        </div>
+        <textarea rows="4" cols="50" value="content" th:field="*{content}"></textarea>
+
+        <p>Kategorija</p>
+        <select value="category" th:field="*{categoryid}">
+            <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+        </select>
+
+        <div class="form-actions">
+            <button type="submit" class="btn bg-color">Unesi</button>
+        </div>
+    </form>
+
+</main>
+
+<footer>
+</footer>
+
+</body>
+</html>
